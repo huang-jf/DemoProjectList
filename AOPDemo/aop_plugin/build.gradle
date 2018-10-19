@@ -1,0 +1,25 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+dependencies {
+    implementation gradleApi()//gradle sdk
+    implementation localGroovy()//groovy sdk
+    implementation 'com.android.tools.build:gradle:3.1.2'
+    implementation 'org.javassist:javassist:3.20.0-GA'
+    implementation 'org.aspectj:aspectjtools:1.9.1'
+}
+
+uploadArchives {
+    repositories.mavenDeployer {
+        repository(url: uri('../repo'))
+        pom.groupId = 'com.hjf.plugin'
+        pom.artifactId = 'aop'
+        pom.version = '1.0.0'
+    }
+}
+
+repositories {
+    jcenter()
+}
+
+//注意⚠️:   插件修改后运行前需要重新发布: ./gradlew -p aop_plugin clean build uploadArchives --info
